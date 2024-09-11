@@ -13,6 +13,9 @@ let todos: Todo[] = []
 const todoInput = document.getElementById('todo-input') as HTMLInputElement
 const todoList = document.getElementById('todo-list') as HTMLUListElement
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement
+const clearCompletedButton = document.getElementById('clear-completed-btn') as HTMLButtonElement
+const toggleAllButton = document.getElementById('toggle-all-btn') as HTMLButtonElement
+
 
 // Step 4: Create a function to add a new todo
 const addTodo = (text: string): void => {
@@ -26,19 +29,37 @@ const addTodo = (text: string): void => {
   renderTodos() // Refreshes the todo list when something gets added
 }
 
+const toggleTodo = (id: number): void => {
+  todos = todos.map(todo =>
+    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  )
+  renderTodos()
+}
+
 const renderTodos = (): void => {
   todoList.innerHTML = ''
+
+  
 
   todos.forEach(todo => {
     const li = document.createElement('li')
     li.className = 'todo-item'
+
+    if (todo.completed) {
+      li.classList.add('completed')
+    }
+
     li.innerHTML = `
+      <input type="checkbox" ${todo.completed ? 'checked' : ''}>
       <span>${todo.title}</span>
       <button>Remove</button>
-      <button id="edit">Edit</button>
+      <button class="edit">Edit</button>
+      <button class="toggle-button">Complete</button>
       `;
+
       addRemoveButtonListener(li, todo.id)
       addEditButtonListener(li, todo.title)
+      addToggleListener(li, todo.id)
       todoList.appendChild(li)
   })
 }
@@ -112,3 +133,113 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
+// Step 8: Create a function to toggle the completed status of a todo item
+const toggleAllTodos = (): void => {
+  const allCompleted = todos.every(todo => todo.completed) // Check if all are completed
+
+  todos = todos.map(todo => ({
+    ...todo,
+    completed: !allCompleted // Toggle all to the opposite state
+  }))
+
+  renderTodos() // Re-render the todo list
+}
+
+const addToggleListener = (li: HTMLLIElement, id: number) => {
+  const checkbox = li.querySelector('input[type="checkbox"]') as HTMLInputElement
+  checkbox?.addEventListener('change', () => toggleTodo(id))
+
+  const toggleButton = li.querySelector('.toggle-btn')
+  toggleButton?.addEventListener('click', () => toggleTodo(id))
+}
+toggleAllButton.addEventListener('click', toggleAllTodos)
+
+// const removeTodo = (id: number) => {
+//   todos = todos.filter(todo => todo.id !== id)
+//   renderTodos()
+// }
+
+const clearCompletedTodos = (): void => {
+  todos = todos.filter(todo => !todo.completed)
+  renderTodos()
+}
+
+clearCompletedButton.addEventListener('click', clearCompletedTodos)
+
+
+
+
+
+//Optional features list: 
+
+// Option 1: Add a button to toggle the completed status of a todo item
+// Function to toggle the completed status of a todo + 
+// Add a button to toggle the completed status of a todo item
+
+// Option 2: Add a button to clear all completed todos
+// Add a button to clear all completed todos
+// Function to clear all completed todos
+// Add a button to toggle all todos
+
+// Option 3: Add a button to toggle all todos
+// Edit a todo item and update it
+// Add an input field to edit a todo item
+// Save the updated todo item
+// Cancel the editing of a todo item
+// Add a button to cancel the editing of a todo item
+
+// Option 4: Add a button to filter todos by status
+// Add a button to filter todos by status
+// Function to filter todos by status
+
+// Option 5: Add a button to sort todos by status
+// Add a button to sort todos by status
+// Function to sort todos by status
+
+// Option 6: Due Date for Todos:
+// Add a date input field to set a due date for each todo item.
+// Display the due date next to each todo item.
+// Highlight overdue todos.
+// Priority Levels:
+
+// Option 7: Add a dropdown to set the priority level (e.g., Low, Medium, High) for each todo item.
+// Display the priority level next to each todo item.
+// Sort todos by priority.
+// Search Functionality:
+
+// Option 8: Add a search input field to filter todos based on the search query.
+// Display only the todos that match the search query.
+// Category Tags:
+
+// Option 9: Add a text input field to assign category tags to each todo item.
+// Display the tags next to each todo item.
+// Filter todos by category tags.
+// Progress Indicator:
+
+// Option 10: Add a progress bar to show the percentage of completed todos.
+// Update the progress bar as todos are marked as completed or incomplete.
+// Dark Mode Toggle:
+
+// Option 11: Add a button to toggle between light and dark modes.
+// Change the app's theme based on the selected mode.
+// Export/Import Todos:
+
+// Option 12: Add buttons to export the list of todos to a JSON file.
+// Add functionality to import todos from a JSON file.
+// Notifications:
+
+// Option 13: Add notifications to remind users of due todos.
+// Use the Notification API to show browser notifications.
+
+// Option 14: Local Storage:
+// Save the list of todos to local storage.
+// Retrieve the todos from local storage on page load.
+// Add a button to clear all todos from local storage.
+
+// Option 15: JSDOC Comments:
+// Add JSDoc comments to document the functions and interfaces in the code.
+// Link : https://jsdoc.app/
+
+// Optional 16: Handle Errors:
+// Add error handling for user input validation. Show red text or border for invalid input.
+// Display error messages for invalid input.
