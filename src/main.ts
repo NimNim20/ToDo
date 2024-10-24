@@ -52,9 +52,9 @@ const renderTodos = (): void => {
     li.innerHTML = `
       <input type="checkbox" ${todo.completed ? 'checked' : ''}>
       <span>${todo.title}</span>
-      <button>Remove</button>
-      <button class="edit">Edit</button>
-      <button class="toggle-button">Complete</button>
+      <button id="remove">Remove</button>
+      <button id="edit">Edit</button>
+      <button id="toggle-button">Complete</button>
       `;
 
       addRemoveButtonListener(li, todo.id)
@@ -108,8 +108,6 @@ const editTodo = (title: string) => {
   }
 }
 
-
-
 // Step 7: Create a function to change background color
 const changeColor = (): void => {
   const colorPicker = document.getElementById('colorPicker') as HTMLInputElement
@@ -149,7 +147,7 @@ const addToggleListener = (li: HTMLLIElement, id: number) => {
   const checkbox = li.querySelector('input[type="checkbox"]') as HTMLInputElement
   checkbox?.addEventListener('change', () => toggleTodo(id))
 
-  const toggleButton = li.querySelector('.toggle-btn')
+  const toggleButton = li.querySelector('#toggle-button')
   toggleButton?.addEventListener('click', () => toggleTodo(id))
 }
 toggleAllButton.addEventListener('click', toggleAllTodos)
