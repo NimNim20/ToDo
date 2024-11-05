@@ -24,7 +24,7 @@ await t
 .typeText('#todo-input' , 'Test task')
 .click ('#add-todo')
 .expect(Selector('li').innerText).contains('Test task')
-.click('#editBtn')
+.click('#edit')
 .expect(Selector('li').innerText).contains('Edited todo');
 
 });
