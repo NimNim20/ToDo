@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture `ToDo`
-    .page `http://localhost:5173/`;
+    .page `https://test.bimmersen365.dk/todo/`;
 
 test('Add new task', async t => {
     await t
