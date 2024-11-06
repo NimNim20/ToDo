@@ -29,6 +29,12 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
 }
 
 .container {
@@ -142,4 +148,13 @@ h1 {
   font-size: 0.9em;
   margin-top: 5px;
   display: none;
+}
+
+#theme-toggle-button{
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
 }
