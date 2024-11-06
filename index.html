@@ -9,7 +9,13 @@
   <body>
     
     <div class="container">
+      <div id="progress-container">
+        <progress id="todo-progress-bar" value="0" max="100"></progress>
+        <span id="progress-text">0%</span>
+      </div>
+      
       <button id="theme-toggle-button">Toggle Theme</button>
+
       <h1>Todo App</h1>
       <form class="todo-form">
         <input type="text" id="todo-input" placeholder="Enter a todo" />
