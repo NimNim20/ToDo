@@ -173,10 +173,9 @@ clearCompletedButton.addEventListener('click', clearCompletedTodos)
 
 // Option 10: Add a progress bar to show the percentage of completed todos.
 // Update the progress bar as todos are marked as completed or incomplete.
-// Dark Mode Toggle:
+
 
 
 // Option 11: Add a button to toggle between light and dark modes.
 // Change the app's theme based on the selected mode.
-// Export/Import Todos:
 
