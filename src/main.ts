@@ -15,6 +15,7 @@ const todoList = document.getElementById('todo-list') as HTMLUListElement
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement
 const clearCompletedButton = document.getElementById('clear-completed-btn') as HTMLButtonElement
 const toggleAllButton = document.getElementById('toggle-all-btn') as HTMLButtonElement
+const themeSelect = document.getElementById('theme-toggle-button') as HTMLButtonElement
 
 
 // Step 4: Create a function to add a new todo
@@ -188,4 +189,11 @@ const updateProgressBar = (): void => {
 
 // Option 11: Add a button to toggle between light and dark modes.
 // Change the app's theme based on the selected mode.
+const toggleTheme = (): void => {
+  document.body.classList.toggle('dark-mode')
+}
 
+const themeToggleButton = document.querySelector('#theme-toggle-button')
+themeToggleButton?.addEventListener('click', toggleTheme)
+
+themeSelect.addEventListener('click', toggleTheme)
