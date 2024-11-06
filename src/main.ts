@@ -30,10 +30,12 @@ const addTodo = (text: string): void => {
 }
 
 const toggleTodo = (id: number): void => {
-  todos = todos.map(todo =>
-    todo.id === id ? { ...todo, completed: !todo.completed } : todo
-  )
-  renderTodos()
+  const todo = todos.find(todo => todo.id === id)
+  if (todo) {
+    todo.completed = !todo.completed
+    renderTodos()
+    updateProgressBar()
+  }
 }
 
 const renderTodos = (): void => {
@@ -173,7 +175,15 @@ clearCompletedButton.addEventListener('click', clearCompletedTodos)
 
 // Option 10: Add a progress bar to show the percentage of completed todos.
 // Update the progress bar as todos are marked as completed or incomplete.
-
+const updateProgressBar = (): void => {
+  const totalTodos = todos.length
+  const completedTodos = todos.filter(todo => todo.completed).length
+  const progress = totalTodos === 0 ? 0 : (completedTodos / totalTodos) * 100
+  const progressBar = document.querySelector('#todo-progress-bar') as HTMLProgressElement
+  const progressText = document.querySelector('#progress-text') as HTMLSpanElement
+  progressBar.value = progress
+  progressText.textContent = `${Math.round(progress)}%`
+}
 
 
 // Option 11: Add a button to toggle between light and dark modes.
