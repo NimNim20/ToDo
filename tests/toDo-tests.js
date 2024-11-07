@@ -47,7 +47,8 @@ test("Progress bar updates correctly", async t => {
     await t
         .typeText('#todo-input', 'Do the dishes')
         .click('#add-todo')
-        .click(Selector('#check-task').withText('Do the dishes'))  // Assumes task can be identified by text
+        // Use a more specific selector for the checkbox inside the list item
+        .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
         .expect(Number(await progressBar.getAttribute('value'))).eql(25, 'Progress bar should update to 25% after first task')
         .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
 
@@ -55,7 +56,7 @@ test("Progress bar updates correctly", async t => {
     await t
         .typeText('#todo-input', 'Take out the trash')
         .click('#add-todo')
-        .click(Selector('#check-task').withText('Take out the trash'))
+        .click(Selector('li').withText('Take out the trash').find('input[type="checkbox"]'))
         .expect(Number(await progressBar.getAttribute('value'))).eql(50, 'Progress bar should update to 50% after second task')
         .expect(progressText.innerText).eql('50%', 'Progress text should show 50%');
 
@@ -63,7 +64,7 @@ test("Progress bar updates correctly", async t => {
     await t
         .typeText('#todo-input', 'Mow the lawn')
         .click('#add-todo')
-        .click(Selector('#check-task').withText('Mow the lawn'))
+        .click(Selector('li').withText('Mow the lawn').find('input[type="checkbox"]'))
         .expect(Number(await progressBar.getAttribute('value'))).eql(75, 'Progress bar should update to 75% after third task')
         .expect(progressText.innerText).eql('75%', 'Progress text should show 75%');
 
@@ -71,7 +72,7 @@ test("Progress bar updates correctly", async t => {
     await t
         .typeText('#todo-input', 'Wash the car')
         .click('#add-todo')
-        .click(Selector('#check-task').withText('Wash the car'))
+        .click(Selector('li').withText('Wash the car').find('input[type="checkbox"]'))
         .expect(Number(await progressBar.getAttribute('value'))).eql(100, 'Progress bar should reach 100% after all tasks')
         .expect(progressText.innerText).eql('100%', 'Progress text should show 100%');
 });
