@@ -23,12 +23,14 @@ const addTodo = (text: string): void => {
   const newTodo: Todo = {
     id: Date.now(),
     title: text,
-    completed: false
-  }
-  todos.push(newTodo)
-  console.log("Todo added: ", todos)
-  renderTodos() // Refreshes the todo list when something gets added
-}
+    completed: false,
+  };
+  todos.push(newTodo);
+  renderTodos(); // Refreshes the todo list when something gets added
+  
+  // Mark the new todo as completed and update progress
+  toggleTodo(newTodo.id); // This will update progress immediately after adding the task
+};
 
 const toggleTodo = (id: number): void => {
   const todo = todos.find(todo => todo.id === id)
@@ -177,13 +179,13 @@ clearCompletedButton.addEventListener('click', clearCompletedTodos)
 // Option 10: Add a progress bar to show the percentage of completed todos.
 // Update the progress bar as todos are marked as completed or incomplete.
 const updateProgressBar = (): void => {
-  const totalTodos = todos.length
-  const completedTodos = todos.filter(todo => todo.completed).length
-  const progress = totalTodos === 0 ? 0 : (completedTodos / totalTodos) * 100
-  const progressBar = document.querySelector('#todo-progress-bar') as HTMLProgressElement
-  const progressText = document.querySelector('#progress-text') as HTMLSpanElement
-  progressBar.value = progress
-  progressText.textContent = `${Math.round(progress)}%`
+  const totalTodos = todos.length;
+  const completedTodos = todos.filter(todo => todo.completed).length;
+  const progress = totalTodos === 0 ? 0 : (completedTodos / totalTodos) * 100;
+  const progressBar = document.querySelector('#todo-progress-bar') as HTMLProgressElement;
+  const progressText = document.querySelector('#progress-text') as HTMLSpanElement;
+  progressBar.value = progress;
+  progressText.textContent = `${Math.round(progress)}%`;
 }
 
 
