@@ -53,7 +53,7 @@ const renderTodos = (): void => {
     }
 
     li.innerHTML = `
-      <input type="checkbox" ${todo.completed ? 'checked' : ''}>
+      <input id="check-task" type="checkbox" ${todo.completed ? 'checked' : ''}>
       <span>${todo.title}</span>
       <button id="remove">Remove</button>
       <button id="edit">Edit</button>
