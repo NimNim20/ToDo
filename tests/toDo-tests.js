@@ -36,17 +36,14 @@ test("Toggling dark mode", async t => {
 });
 
 test('Category selector should change the category of a new todo item', async t => {
-    // Select the category dropdown
     const categorySelect = Selector('#category-select');
     
-    // Select an input field and submit button
     const todoInput = Selector('#todo-input');
     const addTodoButton = Selector('#add-todo');
     
-    // Add a todo with "Home" category
     await t
         .typeText(todoInput, 'My first todo')
         .click(categorySelect)
-        .click(categorySelect.find('option').withText('Home')) // Choose "Home"
+        .click(categorySelect.find('option').withText('Home')) 
         .click(addTodoButton);
 });

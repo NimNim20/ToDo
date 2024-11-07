@@ -22,7 +22,7 @@ const categorySelect = document.getElementById('category-select') as HTMLSelectE
 
 // Step 4: Create a function to add a new todo
 const addTodo = (text: string): void => {
-  const selectedCategory = categorySelect.value as 'Home' | 'Garden' | 'Others'; // Get selected category
+  const selectedCategory = categorySelect.value as 'Home' | 'Garden' | 'Others'; 
   const newTodo: Todo = {
     id: Date.now(),
     title: text,
@@ -31,9 +31,6 @@ const addTodo = (text: string): void => {
   };
   todos.push(newTodo);
   renderTodos(); // Refreshes the todo list when something gets added
-  
-  // Mark the new todo as completed and update progress
-  toggleTodo(newTodo.id); // This will update progress immediately after adding the task
 };
 
 const toggleTodo = (id: number): void => {
@@ -47,8 +44,6 @@ const toggleTodo = (id: number): void => {
 
 const renderTodos = (): void => {
   todoList.innerHTML = ''
-
-  
 
   todos.forEach(todo => {
     const li = document.createElement('li')
@@ -100,9 +95,6 @@ const removeTodo = (id: number) => {
 // Option 3: Add a button to toggle all todos
 // Edit a todo item and update it
 // Add an input field to edit a todo item
-// Save the updated todo item
-// Cancel the editing of a todo item
-// Add a button to cancel the editing of a todo item
 
 const addEditButtonListener = (li: HTMLLIElement, id: string) => {
   const editButton = li.querySelector('#edit')
@@ -148,14 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // Add a button to toggle the completed status of a todo item
 
 const toggleAllTodos = (): void => {
-  const allCompleted = todos.every(todo => todo.completed) // Check if all are completed
+  const allCompleted = todos.every(todo => todo.completed)
 
   todos = todos.map(todo => ({
     ...todo,
-    completed: !allCompleted // Toggle all to the opposite state
+    completed: !allCompleted
   }))
 
-  renderTodos() // Re-render the todo list
+  renderTodos()
 }
 
 const addToggleListener = (li: HTMLLIElement, id: number) => {
