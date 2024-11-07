@@ -37,23 +37,25 @@ test("Toggling dark mode", async t => {
 test("Progress bar updates correctly", async t => {
     const progressBar = Selector('#todo-progress-bar');
     const progressText = Selector('#progress-text');
-  
+
     // Check initial state of the progress bar
     await t
-      .expect(progressBar.getAttribute('value')).eql('0', 'Progress bar should start at 0%')
-      .expect(progressText.innerText).eql('0%', 'Progress text should start at 0%');
-  
+    .expect(progressBar.getAttribute('value')).eql('0', 'Progress bar should start at 0%')
+    .expect(progressText.innerText).eql('0%', 'Progress text should start at 0%');
+
     // Add and complete the first task, then verify progress
     await t
-      .typeText('#todo-input', 'Do the dishes')
-      .click('#add-todo')
-      .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
-      
+    .typeText('#todo-input', 'Do the dishes')
+    .click('#add-todo')
+    .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
+
       // Force progress bar update
-      .eval(() => { updateProgressBar(); return true; })
-  
-      // Wait for the progress bar to update and assert its value
-      .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task')
-      .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
-  });
-  
+    .eval(() => { updateProgressBar(); })
+
+      // Wait for the progress bar to update and assert its value separately
+    .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task');
+
+    // Assert progress text separately after the update
+    await t
+    .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
+});
