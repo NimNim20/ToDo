@@ -52,6 +52,6 @@ test("Progress bar updates correctly", async t => {
         // Wait for the progress bar to update
         .wait(500)
         await t
-        .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should start at 25%')
-        .expect(progressText.innerText).eql('25%', 'Progress text should start at 25%');
+            .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task')
+            .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
 });
