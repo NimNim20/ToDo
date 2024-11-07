@@ -4,6 +4,7 @@ interface Todo {
   id: number;
   title: string;
   completed: boolean;
+  category: 'Home' | 'Garden' | 'Others';
 }
 
 // Step 2: Initialize the todos array
@@ -16,14 +17,17 @@ const todoForm = document.querySelector('.todo-form') as HTMLFormElement
 const clearCompletedButton = document.getElementById('clear-completed-btn') as HTMLButtonElement
 const toggleAllButton = document.getElementById('toggle-all-btn') as HTMLButtonElement
 const themeSelect = document.getElementById('theme-toggle-button') as HTMLButtonElement
+const categorySelect = document.getElementById('category-select') as HTMLSelectElement;
 
 
 // Step 4: Create a function to add a new todo
 const addTodo = (text: string): void => {
+  const selectedCategory = categorySelect.value as 'Home' | 'Garden' | 'Others'; // Get selected category
   const newTodo: Todo = {
     id: Date.now(),
     title: text,
     completed: false,
+    category: selectedCategory,
   };
   todos.push(newTodo);
   renderTodos(); // Refreshes the todo list when something gets added
@@ -57,6 +61,7 @@ const renderTodos = (): void => {
     li.innerHTML = `
       <input id="check-task" type="checkbox" ${todo.completed ? 'checked' : ''}>
       <span>${todo.title}</span>
+      <span class="category">Category: ${todo.category}</span>
       <button id="remove">Remove</button>
       <button id="edit">Edit</button>
       <button id="toggle-button">Complete</button>

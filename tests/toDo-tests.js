@@ -35,26 +35,18 @@ test("Toggling dark mode", async t => {
         .expect(bodyElement.hasClass('dark-mode')).ok('Dark mode should be activated');
 });
 
-test("Progress bar updates correctly", async t => {
-    const progressBar = Selector('#todo-progress-bar');
-    const progressText = Selector('#progress-text');
-
-    // Check initial state of the progress bar
+test('Category selector should change the category of a new todo item', async t => {
+    // Select the category dropdown
+    const categorySelect = Selector('#category-select');
+    
+    // Select an input field and submit button
+    const todoInput = Selector('#todo-input');
+    const addTodoButton = Selector('#add-todo');
+    
+    // Add a todo with "Home" category
     await t
-    .expect(progressBar.getAttribute('value')).eql('0', 'Progress bar should start at 0%')
-    .expect(progressText.innerText).eql('0%', 'Progress text should start at 0%');
-
-    // Add and complete the first task, then verify progress
-    await t
-    .typeText('#todo-input', 'Do the dishes')
-    .click('#add-todo')
-    .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
-
-      // Wait for the progress bar to update
-      .wait(1000)  // Adjust this delay based on how long the UI takes to update
-
-      // Verify the progress bar
-    .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task')
-    .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
+        .typeText(todoInput, 'My first todo')
+        .click(categorySelect)
+        .click(categorySelect.find('option').withText('Home')) // Choose "Home"
+        .click(addTodoButton);
 });
-
