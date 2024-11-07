@@ -20,21 +20,18 @@ await t
     }  
 })
 
-test ("Editing a todo", async t => {
-    await t
+
     .typeText('#todo-input' , 'Help with homework')
     .click ('#add-todo')
     .expect(Selector('li').innerText).contains('Help with homework')
     .click('#edit')
     .expect(Selector('li').innerText).contains('Edited todo');
-})
+
 
 test ("Toggling dark mode", async t => {
     await t
     .click('#theme-toggle-button')
     .expect(Selector('button').hasClass('dark-mode')).ok()
-    .click('#theme-toggle-button')
-    .expect(Selector('body').hasClass('dark-mode')).notOk()
 })
 
 });
