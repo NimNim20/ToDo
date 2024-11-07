@@ -29,9 +29,15 @@ await t
 
 
 test ("Toggling dark mode", async t => {
+    const darkMode = Selector('#theme-toggle-button')
+
     await t
-    .click('#theme-toggle-button')
-    .expect(Selector('button').hasClass('dark-mode')).ok()
+    .click('darkMode')
+    .expect(darkMode.hasClass('dark-mode')).ok('Dark mode is enabled')
+
+    await t
+    .click('darkMode')
+    .expect(darkMode.hasClass('dark-mode')).notOk('Dark mode is disabled')
 })
 
 });
