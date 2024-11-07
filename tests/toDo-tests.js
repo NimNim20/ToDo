@@ -7,7 +7,8 @@ test("Adding a task", async t => {
     await t 
         .typeText('#todo-input', 'Do the dishes')
         .click('#add-todo')
-        .expect(Selector('li').innerText).contains('Do the dishes');
+        .expect(Selector('li').innerText).contains('Do the dishes')
+        .click('#remove');
 });
 
 test("Editing a todo", async t => {
@@ -21,7 +22,8 @@ test("Editing a todo", async t => {
         .click('#add-todo')
         .expect(Selector('li').innerText).contains('Help with homework')
         .click('#edit')
-        .expect(Selector('li').innerText).contains('Edited todo');
+        .expect(Selector('li').innerText).contains('Edited todo')
+        .click('#remove');
 });
 
 test("Toggling dark mode", async t => {
