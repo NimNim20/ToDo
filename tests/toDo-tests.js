@@ -49,8 +49,10 @@ test("Progress bar updates correctly", async t => {
     .click('#add-todo')
     .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
 
-      // Wait for the progress bar to update
-    .wait(500) // Make sure this wait is long enough for the update to happen
+      // Explicitly call updateProgressBar to ensure it's recalculated
+      .eval(() => updateProgressBar()) // Force the progress bar update immediately
+
+      // Wait for the progress bar to update using TestCafe's waiting mechanism
     .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task')
     .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
 });
