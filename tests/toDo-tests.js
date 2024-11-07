@@ -20,11 +20,14 @@ await t
     }  
 })
 
-.typeText('#todo-input' , 'Help with homework')
-.click ('#add-todo')
-.expect(Selector('li').innerText).contains('Help with homework')
-.click('#edit')
-.expect(Selector('li').innerText).contains('Edited todo');
+test ("Editing a todo", async t => {
+    await t
+    .typeText('#todo-input' , 'Help with homework')
+    .click ('#add-todo')
+    .expect(Selector('li').innerText).contains('Help with homework')
+    .click('#edit')
+    .expect(Selector('li').innerText).contains('Edited todo');
+})
 
 test ("Toggling dark mode", async t => {
     await t
