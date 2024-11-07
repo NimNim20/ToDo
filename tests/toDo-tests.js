@@ -7,8 +7,8 @@ test("Adding a task", async t => {
     await t 
         .typeText('#todo-input', 'Do the dishes')
         .click('#add-todo')
-        .expect(Selector('li').innerText).contains('Do the dishes')
-        .click('#remove');
+        .expect(Selector('li').withText('Do the dishes').exists).ok()
+        .click(Selector('li').withText('Do the dishes').find('#remove'));
 });
 
 test("Editing a todo", async t => {
@@ -20,42 +20,33 @@ test("Editing a todo", async t => {
         })
         .typeText('#todo-input', 'Help with homework')
         .click('#add-todo')
-        .expect(Selector('li').innerText).contains('Help with homework')
-        .click('#edit')
-        .expect(Selector('li').innerText).contains('Edited todo')
-        .click('#remove');
+        .expect(Selector('li').withText('Help with homework').exists).ok()
+        .click(Selector('li').withText('Help with homework').find('#edit'))
+        .expect(Selector('li').withText('Edited todo').exists).ok()
+        .click(Selector('li').withText('Edited todo').find('#remove'));
 });
 
 test("Toggling dark mode", async t => {
     const themeToggleButton = Selector('#theme-toggle-button');
+    const bodyElement = Selector('body');
 
     await t
         .click(themeToggleButton)
-        .expect(themeToggleButton.hasClass('dark-mode')).ok('Dark mode should be activated');
+        .expect(bodyElement.hasClass('dark-mode')).ok('Dark mode should be activated');
 });
 
 test("Progress bar updates correctly", async t => {
     const progressBar = Selector('#todo-progress-bar');
     const progressText = Selector('#progress-text');
 
-    // Check initial state of the progress bar
     await t
     .expect(progressBar.getAttribute('value')).eql('0', 'Progress bar should start at 0%')
     .expect(progressText.innerText).eql('0%', 'Progress text should start at 0%');
 
-    // Add and complete the first task, then verify progress
     await t
     .typeText('#todo-input', 'Do the dishes')
     .click('#add-todo')
     .click(Selector('li').withText('Do the dishes').find('input[type="checkbox"]'))
-
-      // Force progress bar update
-    .eval(() => { updateProgressBar(); })
-
-      // Wait for the progress bar to update and assert its value separately
-    .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task');
-
-    // Assert progress text separately after the update
-    await t
+    .expect(progressBar.getAttribute('value')).eql('25', 'Progress bar should update to 25% after first task')
     .expect(progressText.innerText).eql('25%', 'Progress text should show 25%');
 });
